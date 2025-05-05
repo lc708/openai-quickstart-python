@@ -4,10 +4,11 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 #测试CoT
 SYSTEM = "You are a helpful agent."
+COT_INSTRUCTION = "Let's think step by step. First derive the reasoning, then provide the final answer after the words 'Answer:'."
 question = " ".join(sys.argv[1:]) or "What is an AI agent?"
 messages=[
     {"role":"system","content": SYSTEM},
-    {"role":"user","content": f"{question}"}
+    {"role":"user","content": f"{question}\n\n{COT_INSTRUCTION}"}
 ]
 resp = openai.chat.completions.create(
         model="gpt-4.1-nano", 
